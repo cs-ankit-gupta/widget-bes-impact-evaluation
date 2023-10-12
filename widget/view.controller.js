@@ -135,6 +135,7 @@
           item2.itemValue = item2.itemValue.replace(/-/g, '/');
         })
       })
+      isEntityAndDCSSelected()
     }
 
     // Checks if any of the Entity and Digital Control System is Selected or not
@@ -392,6 +393,7 @@
           $scope.close();
         }
         loadCriteria();
+        displaySubCriteria();
       }
       if ($scope.WizardHandler.wizard('besImpactEvaluation').currentStep().wzTitle === 'Impact Rating Criteria') {
         checkCriteriaSelected()
