@@ -8,9 +8,9 @@
     .module('cybersponse')
     .controller('besImpactEvaluation100Ctrl', besImpactEvaluation100Ctrl);
 
-  besImpactEvaluation100Ctrl.$inject = ['$scope', '$window', '$timeout', 'CommonUtils', 'config', '_', 'toaster', '$http', '$sce', '$state', 'WizardHandler', 'API', 'Entity', '$resource', 'PagedCollection', '$q', 'widgetService'];
+  besImpactEvaluation100Ctrl.$inject = ['$scope', '$window', '$timeout', 'CommonUtils', '_', 'toaster', '$http', '$state', 'WizardHandler', 'API', 'Entity', '$resource', 'PagedCollection', '$q'];
 
-  function besImpactEvaluation100Ctrl($scope, $window, $timeout, CommonUtils, config, _, toaster, $http, $sce, $state, WizardHandler, API, Entity, $resource, PagedCollection, $q, widgetService) {
+  function besImpactEvaluation100Ctrl($scope, $window, $timeout, CommonUtils, _, toaster, $http, $state, WizardHandler, API, Entity, $resource, PagedCollection, $q) {
     $scope.id = $state.params.id;
     $scope.note = { 'data': "" }
     $scope.impactTab = {
@@ -42,327 +42,9 @@
     $scope.displaySubCriteria = displaySubCriteria
     $scope.selectAllOperations = selectAllOperations
     $scope.entityNextPage = 'Assess Criteria'
-    $scope.entitySubCriteria = {
-      "Distribution Provider (DP)": [
-        "UVLS / UFLS",
-        "NERC / SPS / RAS",
-        "Cranking Path",
-        "None"
-      ]
-    }
     $scope.selectedDPValue = { data: "" }
-    $scope.digitalControlSystemsSubCriteria = {
-      "Generation Resource": [
-        { "itemValue": "Nuclear", "isSelected": false },
-        { "itemValue": "Gas", "isSelected": false },
-        { "itemValue": "Coal", "isSelected": false },
-        { "itemValue": "Hydro", "isSelected": false },
-        { "itemValue": "Biomass", "isSelected": false },
-        { "itemValue": "Battery", "isSelected": false },
-        { "itemValue": "Petcoke", "isSelected": false },
-        { "itemValue": "Wind", "isSelected": false },
-        { "itemValue": "Solar", "isSelected": false },
-        { "itemValue": "Hydro", "isSelected": false },
-        { "itemValue": "Biomass", "isSelected": false },
-        { "itemValue": "Battery", "isSelected": false }
-      ]
-    }
     $scope.WizardHandler = WizardHandler;
-    $scope.entityType = []
-    $scope.criteriaOptions = ["High", "Medium", "Low"];
     $scope.criteriaOutput = "Low";
-    $scope.externalRoutableConnectivity = false;
-    $scope.impactRatingCriteria = {
-      "commonData": {
-        "Generation Resource": [
-          {
-            "name": "The system is associated with generation at a single plant location, with an aggregate highest rated net Real Power capability equal to or exceeding 1500 MW in a single Interconnection.",
-            "criteriaNumber": "2.1",
-            "isSelected": false
-          },
-          {
-            "name": "The system is associated with a Generation Facility informed by its PC or TP as necessary to avoid an Adverse Reliability Impact in the planning horizon of more than one year.",
-            "criteriaNumber": "2.3",
-            "isSelected": false
-          },
-          {
-            "name": "The system is associated with a Generation or Transmission Facility that has been identified by its RC, PC, or TP as critical to the derivation of Interconnection Reliability Operating Limits (IROLs) and their associated contingencies.",
-            "criteriaNumber": "2.6",
-            "isSelected": false
-          }
-        ],
-        "Cranking Path": [],
-        "UVLS / UFLS": [
-          {
-            "name": "The system is associated with a group of Elements that performs automatic (not initiated by a human operator) undervoltage or underfrequency Load shedding of 300 MW or more, under a load shedding program that is subject to one or more requirements in a NERC or regional reliability standard.",
-            "criteriaNumber": "2.10",
-            "isSelected": false
-          }
-        ],
-        "Transmission Station / Substation": [
-          {
-            "name": "The system is associated with Transmission Facilities operated at 500 kV or higher, not including the collector bus for a Generation Resource.",
-            "criteriaNumber": "2.4",
-            "isSelected": false
-          },
-          {
-            "name": "The system is associated with Transmission Facilities operating between 200 kV and 499 kV, where a single station or substation has at least 5 lines connected between 200 kV to 299 kV, or at least 3 lines connected between 300 kV to 399 kV, not including the collector bus for a Generation Resource.",
-            "criteriaNumber": "2.5",
-            "isSelected": false
-          },
-          {
-            "name": "The system is associated with a Generation or Transmission Facility that has been identified by its RC, PC, or TP as critical to the derivation of Interconnection Reliability Operating Limits (IROLs) and their associated contingencies.",
-            "criteriaNumber": "2.6",
-            "isSelected": false
-          },
-          {
-            "name": "The system is associated with Transmission Facilities identified as essential to meeting Nuclear Plant Interface Requirements.",
-            "criteriaNumber": "2.7",
-            "isSelected": false
-          },
-          {
-            "name": "The system is associated with Transmission Facilities, including generation interconnection Facilities, providing the generation interconnection for a Generation Resource with an aggregate highest rated net Real Power capability equal to or exceeding 1500 MW in a single Interconnection.",
-            "criteriaNumber": "2.11",
-            "isSelected": false
-          },
-          {
-            "name": "The system is associated with Transmission Facilities, including generation interconnection Facilities, providing the generation interconnection for a Generation Resource informed by its PC or TP as necessary to avoid an Adverse Reliability Impact in the planning horizon of more than one year.",
-            "criteriaNumber": "2.3",
-            "isSelected": false
-          }
-        ],
-        "Blackstart Resource": [
-          {
-            "name": "The system is associated with generation at a single plant location, with an aggregate highest rated net Real Power capability equal to or exceeding 1500 MW in a single Interconnection.",
-            "criteriaNumber": "2.1",
-            "isSelected": false
-          },
-          {
-            "name": "The system is associated with a Generation Facility informed by its PC or TP as necessary to avoid an Adverse Reliability Impact in the planning horizon of more than one year.",
-            "criteriaNumber": "2.3",
-            "isSelected": false
-          },
-          {
-            "name": "The system is associated with a Generation or Transmission Facility that has been identified by its RC, PC, or TP as critical to the derivation of Interconnection Reliability Operating Limits (IROLs) and their associated contingencies.",
-            "criteriaNumber": "2.6",
-            "isSelected": false
-          }
-        ],
-        "SPS / RAS": [
-          {
-            "name": "The system is associated with a Special Protection System (SPS), Remedial Action Scheme (RAS), or automated switching System that could cause one or more Interconnection Reliability Operating Limits (IROLs) violations for failure to operate as designed, or cause a reduction in one or more IROLs.",
-            "criteriaNumber": "2.9",
-            "isSelected": false
-          }
-        ],
-        "Reactive Resource": [
-          {
-            "name": "The system is associated with reactive resources with an aggregate maximum Reactive Power nameplate rating of 1000 MVAR or greater at a single location, but not located at a Generation Facility.",
-            "criteriaNumber": "2.2",
-            "isSelected": false
-          }
-        ]
-      },
-      "Control Center / Backup Control Center": {
-        "Balancing Authority (BA)": [
-          {
-            "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Balancing Authority for generation equal to or greater than an aggregate of 3000 MW in a single Interconnection.",
-            "criteriaNumber": "1.2",
-            "isSelected": false
-          },
-          {
-            "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Balancing Authority with one or more controlled assets that is a Generation Facility informed by its PC or TP as necessary to avoid an Adverse Reliability Impact in the planning horizon of more than one year.",
-            "criteriaNumber": "2.3",
-            "isSelected": false
-          },
-          {
-            "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Balancing Authority with one or more controlled assets that is a Generation or Transmission Facility that has been identified by its RC, PC, or TP as critical to the derivation of Interconnection Reliability Operating Limits (IROLs) and their associated contingencies.",
-            "criteriaNumber": "2.6",
-            "isSelected": false
-          },
-          {
-            "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Balancing Authority with one or more controlled assets that contain a Special Protection System (SPS), Remedial Action Scheme (RAS), or automated switching System that could cause one or more Interconnection Reliability Operating Limits (IROLs) violations for failure to operate as designed, or cause a reduction in one or more IROLs.",
-            "criteriaNumber": "2.9",
-            "isSelected": false
-          },
-          {
-            "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Balancing Authority for generation equal to or greater than an aggregate of 1500 MW in a single Interconnection.",
-            "criteriaNumber": "2.13",
-            "isSelected": false
-          }
-        ],
-        "Generator Operator (GOP)": [
-          {
-            "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Generator Operator for an aggregate highest rated net Real Power capability equal to or exceeding 1500 MW in a single Interconnection, where no single Generation Resource is rated at 1500 MW or higher.",
-            "criteriaNumber": "2.11",
-            "isSelected": false
-          },
-          {
-            "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Generator Operator.",
-            "criteriaNumber": "1.4",
-            "isSelected": false,
-            "yes": [
-              {
-                "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Generator Operator for one or more controlled assets that contain generation at a single plant location, with an aggregate highest rated net Real Power capability equal to or exceeding 1500 MW in a single Interconnection.",
-                "criteriaNumber": "2.1",
-                "isSelected": false
-              },
-              {
-                "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Generator Operator for one or more controlled assets that contain a Generation Facility informed by its PC or TP as necessary to avoid an Adverse Reliability Impact in the planning horizon of more than one year.",
-                "criteriaNumber": "2.3",
-                "isSelected": false
-              },
-              {
-                "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Generator Operator for one or more controlled assets that contain a Generation or Transmission Facility that has been identified by its RC, PC, or TP as critical to the derivation of Interconnection Reliability Operating Limits (IROLs) and their associated contingencies.",
-                "criteriaNumber": "2.6",
-                "isSelected": false
-              },
-              {
-                "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Generator Operator for one or more controlled assets that contain a Special Protection System (SPS), Remedial Action Scheme (RAS), or automated switching System that could cause one or more Interconnection Reliability Operating Limits (IROLs) violations for failure to operate as designed, or cause a reduction in one or more IROLs.",
-                "criteriaNumber": "2.9",
-                "isSelected": false
-              }
-            ]
-          }
-        ],
-        "Reliability Coordinator (RC)": [
-          {
-            "name": "The system is used by and located at a Control Center or backup Control Center that is used to perform the functional obligations of the Reliability Coordinator.",
-            "criteriaNumber": "1.1",
-            "isSelected": false
-          }
-        ],
-        "Transmission Owner (TO)": [
-        ],
-        "Distribution Provider (DP)": [],
-        "Generator Owner (GO)": [
-        ],
-        "Transmission Operator (TOP)": [
-          {
-            "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Transmission Operator.",
-            "criteriaNumber": "1.3",
-            "isSelected": false,
-            "yes": [
-              {
-                "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Transmission Operator for one or more controlled assets that contain reactive resources with an aggregate maximum Reactive Power nameplate rating of 1000 MVAR or greater at a single location, but not located at a Generation Facility.",
-                "criteriaNumber": "2.2",
-                "isSelected": false
-              },
-              {
-                "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Transmission Operator for one or more controlled assets that contain Transmission Facilities operated at 500 kV or higher, not including the collector bus for a Generation Resource.",
-                "criteriaNumber": "2.4",
-                "isSelected": false
-              },
-              {
-                "name": "Is  the system used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Transmission Operator for one or more controlled assets that contain Transmission Facilities operating between 200 kV and 499 kV, where a single station or substation has at least 5 lines connected between 200 kV to 299 kV, or at least 3 lines connected between 300 kV to 399 kV, not including the collector bus for a Generation Resource.",
-                "criteriaNumber": "2.5",
-                "isSelected": false
-              },
-              {
-                "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Transmission Operator for one or more controlled assets that contain Transmission Facilities identified as essential to meeting Nuclear Plant Interface Requirements.",
-                "criteriaNumber": "2.7",
-                "isSelected": false
-              },
-              // {
-              //   "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Transmission Operator for one or more controlled assets that contain Transmission Facilities, including generation interconnection Facilities, providing the generation interconnection for a Generation Resource with an aggregate highest rated net Real Power capability equal to or exceeding 1500 MW in a single Interconnection.",
-              //   "criteriaNumber": "2.11",
-              //   "isSelected": false
-              // },
-              {
-                "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Transmission Operator for one or more controlled assets that contain a Special Protection System (SPS), Remedial Action Scheme (RAS), or automated switching System that could cause one or more Interconnection Reliability Operating Limits (IROLs) violations for failure to operate as designed, or cause a reduction in one or more IROLs.",
-                "criteriaNumber": "2.9",
-                "isSelected": false
-              },
-              {
-                "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Transmission Operator for one or more controlled assets that contain Transmission Facilities, including generation interconnection Facilities, providing the generation interconnection for a Generation Resource informed by its PC or TP as necessary to avoid an Adverse Reliability Impact in the planning horizon of more than one year.",
-                "criteriaNumber": "2.3",
-                "isSelected": false
-              },
-              {
-                "name": "The system is used by and located at a Control Center or backup Control Center used to perform the functional obligations of the Transmission Operator for one or more controlled assets that contain a control system that performs automatic (not initiated by a human operator) undervoltage or underfrequency Load shedding of 300 MW or more, under a load shedding program that is subject to one or more requirements in a NERC or regional reliability standard.",
-                "criteriaNumber": "2.10",
-                "isSelected": false
-              }
-            ]
-          }],
-        "Interchange Coordinator (IC) / Interchange Authority (IA)": []
-      },
-      "High": {
-        "confirmedList": [
-          "1.1",
-          "1.2"
-        ],
-        "unConfirmedList": {
-          "Control Center / Backup Control Center": {
-            "2.1": {
-              "subCriteria": ["1.4"]
-            },
-            "2.2": {},
-            "2.3": {},
-            "2.4": {},
-            "2.5": {},
-            "2.6": {},
-            "2.7": {},
-            "2.9": {
-              "entityType": "Balancing Authority (BA)",
-              "subCriteria": ["1.3", "1.4"]
-            },
-            "2.10": {},
-            "2.11": {
-              "subCriteria": ["1.3"]
-            }
-          }
-        }
-      },
-      "Medium": {
-        "confirmedList": [
-          "1.3",
-          "1.4",
-          "2.13"
-        ],
-        "unConfirmedList": {
-          "Generation Resource": {
-            "2.1": {},
-            "2.3": {},
-            "2.6": {}
-          },
-          "Blackstart Resource": {
-            "2.1": {},
-            "2.3": {},
-            "2.6": {}
-          },
-          "Reactive Resource": {
-            "2.2": {}
-          },
-          "Transmission Station / Substation": {
-            "2.3": {},
-            "2.4": {},
-            "2.6": {},
-            "2.7": {},
-            "2.11": {}
-          },
-          "SPS / RAS": {
-            "2.9": {}
-          },
-          "UVLS / UFLS": {
-            "2.10": {}
-          },
-          "Control Center / Backup Control Center": {
-            "2.11": {}
-          }
-        }
-      },
-      "Low": {
-        "confirmedList": [
-          "2.5"
-        ],
-        "unConfirmedList": {
-          "Control Center / Backup Control Center": {
-            "2.9": {}
-          }
-        }
-      }
-    }
     $scope.pagedCollectionList = [];
     $scope.gridOptions = {
       csOptions: {
@@ -399,6 +81,20 @@
       }).then(function () {
         $scope.entity = entity;
       });
+      loadInputJSONData().then(function (response) {
+        $scope.inputJSONData = response.data;
+      })
+    }
+
+    // Load Input json data
+    function loadInputJSONData() {
+      var defer = $q.defer();
+      $http.get('widgets/installed/besImpactEvaluation-1.0.0/besImpactInput.json').then(function (response) {
+        defer.resolve(response);
+      }, function (error) {
+        defer.reject(error);
+      });
+      return defer.promise;
     }
 
     // Load relationship data defined in "correlatedDataValues"
@@ -474,21 +170,21 @@
     //   }
     // }
 
-    // function checkOnlySelected(name, searchPath) {
-    //   for (var i = 0; i < searchPath.length; i++) {
-    //     var item = searchPath[i];
-    //     if (item.itemValue === name) {
-    //       if (!item.isSelected) {
-    //         return false;
-    //       }
-    //     } else {
-    //       if (item.isSelected) {
-    //         return false;
-    //       }
-    //     }
-    //   }
-    //   return true
-    // }
+    function checkOnlySelected(name, searchPath) {
+      for (var i = 0; i < searchPath.length; i++) {
+        var item = searchPath[i];
+        if (item.itemValue === name) {
+          if (!item.isSelected) {
+            return false;
+          }
+        } else {
+          if (item.isSelected) {
+            return false;
+          }
+        }
+      }
+      return true
+    }
 
     function checkDistributionProviderValue(option) {
       $scope.isDPValueNone = option === 'None'
@@ -505,7 +201,7 @@
     }
 
     function checkGenerationResourceValue() {
-      $scope.isGRValueNuclear = checkOnlySelected('Nuclear', $scope.digitalControlSystemsSubCriteria['Generation Resource'])
+      $scope.isGRValueNuclear = checkOnlySelected('Nuclear', $scope.inputJSONData['digitalControlSystemsSubCriteria']['Generation Resource'])
       if ($scope.isGRValueNuclear) {
         $scope.entityNextPage = 'Exit'
         toaster.error({
@@ -525,14 +221,14 @@
       $scope.entity.fields.digitalControlSystems.options.forEach(item => {
         if (item.itemValue === 'Control Center / Backup Control Center' && item.isSelected) {
           $scope.entity.fields.entityType.options.forEach(criteria => {
-            if (criteria.isSelected && $scope.impactRatingCriteria['Control Center / Backup Control Center'][criteria.itemValue].length > 0) {
+            if (criteria.isSelected && $scope.inputJSONData['impactRatingCriteria']['Control Center / Backup Control Center'][criteria.itemValue].length > 0) {
               $scope.selectedEntityList.push(criteria.itemValue)
-              $scope.impactRatingCriteriaList.push(...$scope.impactRatingCriteria['Control Center / Backup Control Center'][criteria.itemValue])
+              $scope.impactRatingCriteriaList.push(...$scope.inputJSONData['impactRatingCriteria']['Control Center / Backup Control Center'][criteria.itemValue])
             }
           })
         }
-        else if (item.isSelected && $scope.impactRatingCriteria['commonData'][item.itemValue].length > 0) {
-          $scope.impactRatingCriteriaList.push(...$scope.impactRatingCriteria['commonData'][item.itemValue])
+        else if (item.isSelected && $scope.inputJSONData['impactRatingCriteria']['commonData'][item.itemValue].length > 0) {
+          $scope.impactRatingCriteriaList.push(...$scope.inputJSONData['impactRatingCriteria']['commonData'][item.itemValue])
         }
       })
     }
@@ -549,7 +245,7 @@
     function displaySubCriteria() {
       if ($scope.selectedEntityList.length > 0) {
         $scope.selectedEntityList.forEach(entity => {
-          $scope.impactRatingCriteria['Control Center / Backup Control Center'][entity].forEach(item => {
+          $scope.inputJSONData['impactRatingCriteria']['Control Center / Backup Control Center'][entity].forEach(item => {
             if (item.isSelected && 'yes' in item) {
               item['yes'].forEach(data => {
                 if (!containsObject($scope.impactRatingCriteriaList, data)) {
@@ -597,12 +293,12 @@
     // Check Impact
     function checkImpact(impactType) {
       // Check confirmedList
-      if ($scope.impactRatingCriteriaList.some(selectedItem => $scope.impactRatingCriteria[impactType].confirmedList.includes(selectedItem.criteriaNumber) && selectedItem.isSelected)) {
+      if ($scope.impactRatingCriteriaList.some(selectedItem => $scope.inputJSONData['impactRatingCriteria'][impactType].confirmedList.includes(selectedItem.criteriaNumber) && selectedItem.isSelected)) {
         return true;
       }
 
       // Check unConfirmedList
-      for (const [key, value] of Object.entries($scope.impactRatingCriteria[impactType].unConfirmedList)) {
+      for (const [key, value] of Object.entries($scope.inputJSONData['impactRatingCriteria'][impactType].unConfirmedList)) {
         const isMatch = $scope.entity.fields.digitalControlSystems.options.some(item => item.itemValue === key && item.isSelected);
 
         if (isMatch && $scope.impactRatingCriteriaList.some(data => {

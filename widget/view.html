@@ -139,7 +139,7 @@
                                         </div>
                                         <div
                                             class="export-config-module-container config-module-container-height margin-left-60 ng-scope padding-top-12">
-                                            <div data-ng-repeat="(key, value) in entitySubCriteria"
+                                            <div data-ng-repeat="(key, value) in inputJSONData['entitySubCriteria']"
                                                 data-ng-if="isOnlyDistributionProviderSelected"
                                                 class="margin-top-2 padding-top-7 padding-bottom-6 padding-left-lg"
                                                 data-ng-class-odd="'module-list-odd'"
@@ -182,7 +182,7 @@
                                         </div>
                                         <div
                                             class="export-config-module-container config-module-container-height margin-left-60 ng-scope padding-top-12">
-                                            <div data-ng-repeat="(key, value) in digitalControlSystemsSubCriteria"
+                                            <div data-ng-repeat="(key, value) in inputJSONData['digitalControlSystemsSubCriteria']"
                                                 data-ng-if="isOnlyGenerationResourceSelected"
                                                 data-ng-class-odd="'module-list-odd'"
                                                 data-ng-class-even="'module-list-even'">
