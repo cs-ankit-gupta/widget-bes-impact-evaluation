@@ -350,5 +350,11 @@
                 }
             }
         }
-    }
+    },
+    "correlatedDataValues":[
+        {
+            "name": "assets",
+            "defaultColumns": ["id", "hostname", "macAddress", "level", "zone", "bESCyberAssetCategory", "location"]
+        }
+    ]
 }

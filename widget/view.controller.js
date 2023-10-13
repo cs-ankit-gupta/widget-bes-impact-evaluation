@@ -65,12 +65,6 @@
       paginationPageSizes: [5, 10, 30],
       refresh: false
     };
-    var correlatedDataValues = [
-      {
-        'name': 'assets',
-        'defaultColumns': ['id', 'hostname', 'macAddress', 'level', 'zone', 'bESCyberAssetCategory', 'location'],
-      }
-    ];
 
     // Load Entity data
     _init()
@@ -83,6 +77,7 @@
       });
       loadInputJSONData().then(function (response) {
         $scope.inputJSONData = response.data;
+        _loadRelationship()
       })
     }
 
@@ -98,11 +93,10 @@
     }
 
     // Load relationship data defined in "correlatedDataValues"
-    _loadRelationship()
     function _loadRelationship() {
       var pagedCollectionList = [];
       var promises = [];
-      for (let i = 0; i < correlatedDataValues.length; i++) {
+      for (let i = 0; i < $scope.inputJSONData.correlatedDataValues; i++) {
         var relationshipEntity = new Entity(correlatedDataValues[i].name);
         var params = {
           id: $scope.id,
