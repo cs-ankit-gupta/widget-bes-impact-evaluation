@@ -1,0 +1,21 @@
+{
+    "name": "besImpactEvaluation",
+    "title": "BES Impact Evaluation",
+    "subTitle": "BES Impact Evaluation",
+    "version": "1.0.0",
+    "publishedDate": 1696938743,
+    "releaseNotes": "unavailable",
+    "metadata": {
+        "description": "The widget serves to compute the impact on Cyber Systems within the Bulk Electric System (BES) in accordance with the specifications outlined in NERC CIP 002.",
+        "pages": [],
+        "certified": "No",
+        "publisher": "Fortinet",
+        "compatibility": [
+            "7.4.1"
+        ],
+        "help_online": "https://github.com/fortinet-fortisoar/widget-bes-impact-evaluation/blob/release/1.0.0/README.md",
+        "snapshots": [],
+        "standalone": true,
+        "windowClass": "Full Width"
+    }
+}

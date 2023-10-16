@@ -1,0 +1,418 @@
+<!-- Copyright start
+  Copyright (C) 2008 - 2023 Fortinet Inc.
+  All rights reserved.
+  FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
+  Copyright end -->
+
+<style ype="text/css">
+    .impact-title {
+        border-left: 2px solid;
+        padding: 10px;
+    }
+
+    .rotutable-library-title {
+        border-left: 2px solid #157DD9;
+        background: linear-gradient(to right, rgba(21, 125, 217, 0.4) 5%, transparent 100%);
+        padding: 10px;
+    }
+</style>
+<div class="widget widget-container chart">
+    <div class="modal-header">
+        <h3 class="modal-title col-md-9">BES Cyber System - Impact Evaluation</h3>
+    </div>
+    <form name="besImpactEvaluationForm">
+        <wizard indicators-position="top" class="cs-wizard ingestion-steps" name="besImpactEvaluation">
+            <!-- Start -->
+            <wz-step wz-order="1" wz-title="Start" class="ingestion-modal-padding wizard-first-step">
+                <div class="full-width wz-step-height padding-bottom-md">
+                    <div class="full-height overflow-auto">
+                        <div class="display-table fixed-table-layout full-height full-width">
+                            <div class="full-height display-table-cell vertical-align-middle">
+                                <div class="col-md-6 display-flex align-items-center margin-top-34 padding-0">
+                                    <div class="full-width">
+                                        <img class="img-responsive d-info-image"
+                                            src="widgets/installed/besImpactEvaluation-1.0.0/images/evaluation.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 prerequisites-section padding-bottom-25 padding-left-0">
+                                    <div class="font-size-40 line-height-1">NERC CIP 002-5.1a</div><br />
+                                    <div class="padding-right-30 margin-top-sm max-width-450px">
+                                        <p class="font-size-14 margin-bottom-0 ng-scope"><a
+                                                href="https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-002-5.1a.pdf"
+                                                target="_blank" rel="noopener">NERC Reliability Standard CIP-002-5.1</a>
+                                            (BES Cyber System Categorization) serves an important purpose by requiring
+                                            functional entities to identify and categorize Bulk Electric System (BES)
+                                            Cyber Systems and their associated BES Cyber Assets. </p>
+                                        <br>
+                                        <p class="font-size-14 margin-bottom-0 ng-scope">To identify and categorize BES
+                                            Cyber Systems and their associated BES Cyber Assets for the application of
+                                            cyber security requirements commensurate with the adverse impact that loss,
+                                            compromise, or misuse of those BES Cyber Systems could have on the reliable
+                                            operation of the BES. Identification and categorization of BES Cyber Systems
+                                            support appropriate protection against compromises that could lead to
+                                            misoperation or instability in the BES.</p>
+                                    </div>
+                                    <button data-ng-click="moveNext()" type="button"
+                                        class="btn btn-primary btn-sm margin-top-xlg text-transform-none font-size-14"
+                                        id="solutionpack-next-btn">Let's start by viewing associated Assets <i
+                                            class="fa fa-chevron-right margin-left-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ingestion-modal-footer"></div>
+            </wz-step>
+
+            <!-- Associated Assets -->
+            <wz-step wz-title="Associated Assets" wz-order="2" class="ingestion-modal-padding">
+                <div class="full-width padding-bottom-md">
+                    <div class="full-height overflow-auto">
+                        <div class="display-table fixed-table-layout full-width">
+                            <div class="full-height display-table-cell vertical-align-middle">
+                                <div>
+                                    <label class="font-italic font-size-17 margin-15 muted-75">Below is the list of
+                                        associated assets identified within this system. To record additional
+                                        information, you may include notes.
+                                    </label>
+                                </div>
+                                <div data-ng-repeat="pageData in pagedCollectionList"
+                                    data-ng-if="pagedCollectionList.length > 0">
+                                    <div data-cs-grid data-grid-options=" gridOptions" data-paged-collection="pageData"
+                                        class="grid-widget-container margin-left-lg margin-right-lg ng-isolate-scope">
+                                    </div>
+                                </div>
+                                <div class="form-group margin-left-md margin-right-md padding-bottom-lg">
+                                    <label class="font-size-20 ng-scope muted-75">Note</label>
+                                    <textarea class="form-control margin-bottom-65 margin-left-1" type="text"
+                                        data-ng-model="note.data" placeholder="Note" aria-invalid="false"
+                                        style="height: 130px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ingestion-modal-footer">
+                    <button type="button" class="btn btn-sm btn-second-primary margin-top-lg margin-left-lg"
+                        id="solutionpack-metadata-back-btn" data-ng-click="movePrevious()"><i
+                            class="fa fa-chevron-left margin-right-sm"></i> Back</button>
+                    <button type="button" class="btn btn-primary pull-right btn-sm margin-top-lg margin-right-lg"
+                        data-ng-click="moveNext()" id="solutionpack-metadata-continue-btn">Provide
+                        Entity & Control
+                        Systems Information<i class="fa fa-chevron-right margin-left-sm"></i>
+                    </button>
+                </div>
+            </wz-step>
+
+            <!-- Entity & Control Systems-->
+            <wz-step wz-title="Entity & Control Systems" wz-order="3" class="ingestion-modal-padding">
+                <div class="full-width padding-bottom-md">
+                    <div class="full-height overflow-auto">
+                        <div class="display-table fixed-table-layout full-height full-width">
+                            <div class="full-height display-table-cell vertical-align-middle">
+                                <div class="display-table-cell width-50 vertical-align-middle">
+                                    <div class="text-center">
+                                        <img class="width-60 padding-bottom-65 margin-0-auto"
+                                            src="widgets/installed/besImpactEvaluation-1.0.0/images/checkbox.png">
+                                    </div>
+                                </div>
+                                <div
+                                    class="config-section display-table-cell width-60 padding-bottom-xlg padding-top-20 padding-left-45 padding-right-53">
+                                    <div>
+                                        <div class="margin-30 ng-scope">
+                                            <p class="muted-75 font-size-17 ng-scope">Please indicate the terms that
+                                                most aptly define your entity. </p>
+                                        </div>
+                                        <div
+                                            class="export-config-module-container config-module-container-height margin-left-42">
+                                            <div data-ng-repeat="option in entity.fields.entityType.options"
+                                                class="margin-top-2 padding-top-7 padding-bottom-6 padding-left-lg"
+                                                data-ng-class-odd="'module-list-odd'"
+                                                data-ng-class-even="'module-list-even'">
+                                                <label class="control-label">
+                                                    <input id="{{option.itemValue}}" type="checkbox"
+                                                        name="{{option.itemValue}}" data-ng-model="option.isSelected"
+                                                        data-ng-change="isEntityAndDCSSelected()">
+                                                    <span class="margin-left-xlg">{{option.itemValue}}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="export-config-module-container config-module-container-height margin-left-60 ng-scope padding-top-12">
+                                            <div data-ng-repeat="(key, value) in inputJSONData['entitySubCriteria']"
+                                                data-ng-if="isOnlyDistributionProviderSelected"
+                                                class="margin-top-2 padding-top-7 padding-bottom-6 padding-left-lg"
+                                                data-ng-class-odd="'module-list-odd'"
+                                                data-ng-class-even="'module-list-even'">
+                                                <div data-ng-if="key == 'Distribution Provider (DP)'">
+                                                    <label class="control-label">Do you possess or have ownership
+                                                        of</label></br>
+                                                    <div class="radio-inline" data-ng-repeat="option in value">
+                                                        <p class="control-label display-inline">
+                                                            <input type="radio" id="{{option}}"
+                                                                data-ng-model="selectedDPValue.data"
+                                                                name="dpSubCriteria"
+                                                                data-ng-change="checkDistributionProviderValue(option)"
+                                                                value="{{option}}">{{option}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="margin-bottom-80">
+                                        <div class="margin-30 ng-scope">
+                                            <p class="muted-75 font-size-17 ng-scope">Please Select one or more of the
+                                                following Digital Control System that best describes your system.</p>
+                                        </div>
+                                        <div
+                                            class="export-config-module-container config-module-container-height margin-left-42">
+                                            <div data-ng-repeat="option in entity.fields.digitalControlSystems.options | orderBy: 'itemValue'"
+                                                class="margin-top-2 padding-top-7 padding-bottom-6 padding-left-lg"
+                                                data-ng-class-odd="'module-list-odd'"
+                                                data-ng-class-even="'module-list-even'">
+                                                <label class="control-label">
+                                                    <input id="{{option.itemValue}}" type="checkbox"
+                                                        name="{{option.itemValue}}" data-ng-model="option.isSelected"
+                                                        data-ng-change="isEntityAndDCSSelected()">
+                                                    <span class="margin-left-xlg">{{option.itemValue}}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="export-config-module-container config-module-container-height margin-left-60 ng-scope padding-top-12">
+                                            <div data-ng-repeat="(key, value) in inputJSONData['digitalControlSystemsSubCriteria']"
+                                                data-ng-if="isOnlyGenerationResourceSelected"
+                                                data-ng-class-odd="'module-list-odd'"
+                                                data-ng-class-even="'module-list-even'">
+                                                <div data-ng-if="key == 'Generation Resource'"
+                                                    class="margin-bottom-80 ng-scope">
+                                                    <label class="control-label">Category of Power Generation
+                                                        Source.</label></br>
+                                                    <div class="display-flex display-flex-wrap width-500px">
+                                                        <div class="checbox width-150px"
+                                                            data-ng-repeat="option in value">
+                                                            <p class="control-label"><input class="margin-10"
+                                                                    type="checkbox"
+                                                                    data-ng-change="checkGenerationResourceValue()"
+                                                                    data-ng-model="option.isSelected"
+                                                                    id="{{option.itemValue}}">{{option.itemValue}}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ingestion-modal-footer">
+                    <button type="button" class="btn btn-sm btn-second-primary margin-top-lg margin-left-lg"
+                        id="solutionpack-metadata-back-btn" data-ng-click="movePrevious()"><i
+                            class="fa fa-chevron-left margin-right-sm"></i> Back</button>
+                    <button type="button" data-ng-disabled="disableEntityContinue"
+                        class="btn btn-primary pull-right btn-sm margin-top-lg margin-right-lg"
+                        data-ng-click="moveNext()" id="solutionpack-metadata-continue-btn">{{entityNextPage}}<i
+                            data-ng-if="entityNextPage != 'Exit'" class="fa fa-chevron-right margin-left-sm"></i>
+                    </button>
+                </div>
+            </wz-step>
+
+            <!-- Criteria -->
+            <wz-step wz-title="Impact Rating Criteria" wz-order="4" class="ingestion-modal-padding">
+                <div class="full-width padding-bottom-md">
+                    <div class="full-height overflow-auto">
+                        <div class="display-table fixed-table-layout full-height full-width">
+                            <div class="full-height display-table-cell vertical-align-middle">
+                                <div class="muted-75 font-size-17 margin-10 ng-scope">Please
+                                    respond to the following questions to assess the level of impact.</div>
+                                <div class="padding-left-lg padding-right-lg export-config-module-container">
+                                    <div
+                                        class="padding-top-sm padding-right-sm padding-left-md padding-bottom-md audit-log-container-bottom-border">
+                                        <label class="padding-left-25 control-label checkbox-inline">
+                                            <input type="checkbox" id="selectAll" name="selectAll"
+                                                data-ng-model="selectAll.isSelected"
+                                                data-ng-change="selectAllOperations()">
+                                            <div class="padding-left-xlg">Select All</div>
+                                        </label>
+                                    </div>
+                                    <div class="padding-bottom-xlg">
+                                        <div data-ng-repeat="criteria in impactRatingCriteriaList"
+                                            class="margin-top-2 padding-top-7 padding-bottom-6"
+                                            data-ng-class-odd="'module-list-odd'"
+                                            data-ng-class-even="'module-list-even'">
+                                            <label class="display-flex">
+                                                <div
+                                                    class="padding-top-md padding-right-lg padding-left-lg impactRating">
+                                                    <input id="{{criteria.criteriaNumber}}" type="checkbox"
+                                                        name="{{criteria.criteriaNumber}}"
+                                                        data-ng-model="criteria.isSelected"
+                                                        data-ng-change="displaySubCriteria()">
+                                                </div>
+                                                <div class=" padding-left-lg margin-top-md">
+                                                    <p class="font-size-13 margin-bottom-sm padding-right-25">
+                                                        {{criteria.name}}</p>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group margin-left-md margin-right-md padding-bottom-lg">
+                                    <label class="font-size-20 ng-scope muted-75">Note</label>
+                                    <textarea class="form-control margin-bottom-65 margin-left-1" type="text"
+                                        data-ng-model="note.data" placeholder="{{ note.data }}"
+                                        style="height: 130px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ingestion-modal-footer">
+                    <button type="button" class="btn btn-sm btn-second-primary margin-top-lg margin-left-lg"
+                        id="solutionpack-metadata-back-btn" data-ng-click="movePrevious()"><i
+                            class="fa fa-chevron-left margin-right-sm"></i> Back</button>
+                    <button type="button" data-ng-disabled="criteriaContinue"
+                        class="btn btn-primary pull-right btn-sm margin-top-lg margin-right-lg"
+                        data-ng-click="moveNext()" id="solutionpack-metadata-continue-btn">Continue<i
+                            class="fa fa-chevron-right margin-left-sm"></i>
+                    </button>
+                </div>
+            </wz-step>
+
+            <!-- Summary -->
+            <div>
+                <wz-step wz-title="Summary" wz-order="5" class="ingestion-modal-padding">
+                    <div id="impactColorElement" class="impact-title margin-top-18 ng-scope">
+                        <label class="font-size-20 ng-scope">Evaluated Impact
+                            Level: <span class="padding-left-3 font-italic">{{criteriaOutput}}</span></label>
+                        <div>
+                            <label class="font-italic margin-left-25 modal-title">Based on your selection, the
+                                <span class="font-bold ">{{entity.originalData.title}}</span> system is assessed
+                                with a
+                                <span class="font-bold">{{criteriaOutput}}</span> impact
+                                level.
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <div
+                            class=" col-md-6 display-flex align-items-center padding-top-40 margin-left-120 width-500px">
+                            <div class="full-width" style="margin-top: 110px;">
+                                <img class="img-responsive d-info-image"
+                                    src="widgets/installed/besImpactEvaluation-1.0.0/images/summary.png">
+                            </div>
+                        </div>
+                        <div class="workspace-editor-form-container padding-left-120 padding-bottom-lg">
+                            <div class="margin-left-1-percent margin-top-18 ng-scope">
+                                <label class="font-italic margin-left-25 modal-title">Here is the list of provided
+                                    input. </label>
+                            </div>
+                            <div class="padding-right-30 margin-left-25 padding-top-xlg padding-bottom-65">
+                                <uib-accordion close-others="oneAtATime">
+                                    <div uib-accordion-group is-open="entityTab.open"
+                                        class="queue-card-wrapper panel-default">
+                                        <uib-accordion-heading>
+                                            <div class="border-top-highlighted queue-card-header padding-left-md workspace-connector-metadata-container"
+                                                data-ng-class="{'workspace-connector-metadata-bg-color': entityTab.open}">
+                                                <div class="pull-left queue-card-header-text"
+                                                    data-ng-class="{'queue-text-active-color': entityTab.open}">
+                                                    Entity Type:
+                                                </div>
+                                                <div class="pull-right"><span class="queue-card-actions">&nbsp;<i
+                                                            class="fa {{entityTab.open===true? 'fa-chevron-up':'fa-chevron-down'}}"></i></span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </uib-accordion-heading>
+                                        <div class="padding-bottom-lg padding-top-lg">
+                                            <div data-ng-repeat="entityData in entity.fields.entityType.options">
+                                                <div data-ng-if="entityData.isSelected" class="modal-title">
+                                                    <div class="margin-left-25">
+                                                        <label class="workspace-connector-modal-body-message-padding"
+                                                            data-ng-bind="entityData.itemValue"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div uib-accordion-group is-open="digitalTab.open"
+                                        class="queue-card-wrapper panel-default">
+                                        <uib-accordion-heading>
+                                            <div class="border-top-highlighted queue-card-header padding-left-md workspace-connector-metadata-container"
+                                                data-ng-class="{'workspace-connector-metadata-bg-color': digitalTab.open}">
+                                                <div class="pull-left queue-card-header-text"
+                                                    data-ng-class="{'queue-text-active-color': digitalTab.open}">
+                                                    Digital Control System:
+                                                </div>
+                                                <div class="pull-right"><span class="queue-card-actions">&nbsp;<i
+                                                            class="fa {{digitalTab.open===true? 'fa-chevron-up':'fa-chevron-down'}}"></i></span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </uib-accordion-heading>
+                                        <div class="padding-bottom-lg padding-top-lg">
+                                            <div
+                                                data-ng-repeat="dcsData in entity.fields.digitalControlSystems.options">
+                                                <div data-ng-if="dcsData.isSelected" class="modal-title">
+                                                    <div class="margin-left-25">
+                                                        <label class="workspace-connector-modal-body-message-padding"
+                                                            data-ng-bind="dcsData.itemValue"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div uib-accordion-group is-open="criteriaTab.open"
+                                        class="queue-card-wrapper panel-default">
+                                        <uib-accordion-heading>
+                                            <div class="border-top-highlighted queue-card-header padding-left-md workspace-connector-metadata-container"
+                                                data-ng-class="{'workspace-connector-metadata-bg-color': criteriaTab.open}">
+                                                <div class="pull-left queue-card-header-text"
+                                                    data-ng-class="{'queue-text-active-color': criteriaTab.open}">
+                                                    Criteria:
+                                                </div>
+                                                <div class="pull-right"><span class="queue-card-actions">&nbsp;<i
+                                                            class="fa {{criteriaTab.open===true? 'fa-chevron-up':'fa-chevron-down'}}"></i></span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </uib-accordion-heading>
+                                        <div class="padding-bottom-lg padding-top-lg"
+                                            data-ng-if="selectedCriteria.length > 0">
+                                            <div data-ng-repeat="impactData in impactRatingCriteriaList">
+                                                <div data-ng-if="impactData.isSelected" class="modal-title">
+                                                    <div class="margin-left-25">
+                                                        <label class="workspace-connector-modal-body-message-padding"
+                                                            data-ng-bind="impactData.name"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div data-ng-if="selectedCriteria.length == 0">
+                                            <label class="padding-bottom-lg padding-top-lg margin-left-30">No Criteria
+                                                Selected!</label>
+                                        </div>
+                                    </div>
+                                </uib-accordion>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ingestion-modal-footer">
+                        <button type="button" class="btn btn-sm btn-second-primary margin-top-lg margin-left-lg"
+                            id="solutionpack-metadata-back-btn" data-ng-click="movePrevious()"><i
+                                class="fa fa-chevron-left margin-right-sm"></i> Back</button>
+                        <button type="button" class="btn btn-primary pull-right btn-sm margin-top-lg margin-right-lg"
+                            data-ng-click="saveAndCloseWidget()" id="solutionpack-metadata-continue-btn">Record & Set
+                            Evaluated Impact<i class="fa fa-chevron-right margin-left-sm"></i>
+                        </button>
+                    </div>
+                </wz-step>
+            </div>
+        </wizard>
+    </form>
+</div>
