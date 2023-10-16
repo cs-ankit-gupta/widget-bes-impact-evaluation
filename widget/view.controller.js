@@ -96,13 +96,13 @@
     function _loadRelationship() {
       var pagedCollectionList = [];
       var promises = [];
-      for (let i = 0; i < $scope.inputJSONData.correlatedDataValues; i++) {
-        var relationshipEntity = new Entity(correlatedDataValues[i].name);
+      for (var i = 0; i < $scope.inputJSONData.correlatedDataValues.length; i++) {
+        var relationshipEntity = new Entity($scope.inputJSONData.correlatedDataValues[i].name);
         var params = {
           id: $scope.id,
-          fieldName: correlatedDataValues[i].name
+          fieldName: $scope.inputJSONData.correlatedDataValues[i].name
         };
-        pagedCollectionList.push(new PagedCollection($state.params.module, relationshipEntity, params, null, null, correlatedDataValues[i].defaultColumns, null, null, false));
+        pagedCollectionList.push(new PagedCollection($state.params.module, relationshipEntity, params, null, null, $scope.inputJSONData.correlatedDataValues[i].defaultColumns, null, null, false));
         angular.extend(pagedCollectionList[i].query, { limit: 10 });
         promises.push(pagedCollectionList[i].load(null, null, relationshipEntity.name).$promise);
       }
@@ -141,12 +141,7 @@
       if (!$scope.isOnlyDistributionProviderSelected && !$scope.isOnlyGenerationResourceSelected) {
         $scope.entityNextPage = 'Assess Criteria';
       }
-      // if ($scope.isOnlyDistributionProviderSelected || $scope.isOnlyGenerationResourceSelected) {
-      //   $scope.disableEntityContinue = true
-      // }
-      // else {
       $scope.disableEntityContinue = !(selectedEntity && selectedDigitalControl);
-      // }
     }
 
     // function isEntityAndDCSSelected() {
@@ -193,6 +188,9 @@
         $scope.entityNextPage = 'Assess Criteria'
         $scope.selectedDPValue.data = option
       }
+      else {
+        $scope.entityNextPage = 'Assess Criteria'
+      }
     }
 
     function checkGenerationResourceValue() {
@@ -205,11 +203,10 @@
       }
       else if (!$scope.isDPValueNone) {
         $scope.entityNextPage = 'Assess Criteria'
-        // $scope.disableEntityContinue = false
       }
     }
 
-    // Function load Criteria as per choosen Entity and Digital Control System
+    // Function load Criteria as per chosen Entity and Digital Control System
     function loadCriteria() {
       $scope.impactRatingCriteriaList = []
       $scope.selectedEntityList = []
@@ -228,7 +225,7 @@
       })
     }
 
-    // Select All criteria
+    // Select All option
     function selectAllOperations() {
       angular.forEach($scope.impactRatingCriteriaList, function (impact) {
         impact.isSelected = $scope.selectAll.isSelected
@@ -298,14 +295,50 @@
 
         if (isMatch && $scope.impactRatingCriteriaList.some(data => {
           if (data.isSelected && data.criteriaNumber in value) {
-            return Object.keys(value[data.criteriaNumber]).length === 0 || value[data.criteriaNumber].subCriteria.some(item => $scope.selectedCriteria.includes(item)) || $scope.entity.fields.entityType.options.some(entity => entity.itemValue === value[data.criteriaNumber].entityType && entity.isSelected)
-            // return Object.keys(value[data.criteriaNumber]).length === 0 || $scope.selectedCriteria.includes(value[data.criteriaNumber].subCriteria) || $scope.entity.fields.entityType.options.some(entity => entity.itemValue === value[data.criteriaNumber].entityType && entity.isSelected) // value[data.criteriaNumber].some(subItem => subItem in $scope.impactRatingCriteriaList);
+            return Object.keys(value[data.criteriaNumber]).length === 0 || value[data.criteriaNumber].subCriteria.some(item => $scope.selectedCriteria.includes(item)) || $scope.entity.fields.entityType.options.some(entity => entity.itemValue === value[data.criteriaNumber].entityType && entity.isSelected);
           }
         })) {
           return true;
         }
       }
       return false;
+    }
+
+    function containsObject(mainList, subObject) {
+      return mainList.some(item => JSON.stringify(item) === JSON.stringify(subObject));
+    }
+
+    function moveNext() {
+      $scope.WizardHandler.wizard('besImpactEvaluation').next();
+      if ($scope.WizardHandler.wizard('besImpactEvaluation').currentStep().wzTitle === 'Associated Assets') {
+        loadDefaultEntityAndDCS()
+      }
+      if ($scope.WizardHandler.wizard('besImpactEvaluation').currentStep().wzTitle === 'Entity & Control Systems') {
+        if ($scope.entityNextPage === 'Exit') {
+          $scope.close();
+        }
+        loadCriteria();
+        displaySubCriteria();
+      }
+      if ($scope.WizardHandler.wizard('besImpactEvaluation').currentStep().wzTitle === 'Impact Rating Criteria') {
+        checkCriteriaSelected()
+        setCriteriaOutput()
+        $scope.impactColor = $scope.entity.fields.bESImpact.options.find(item => item.itemValue === $scope.criteriaOutput).color
+        const impactColorElement = document.getElementById('impactColorElement');
+        var impactColorRGB = $scope.convertHexToRgbA(CommonUtils.isUndefined($scope.impactColor) ? '#000' : $scope.impactColor);
+        impactColorElement.style.borderColor = $scope.impactColor;
+        impactColorElement.style.background = 'linear-gradient(to right, ' + impactColorRGB + ' 5%, transparent 100%)';
+      }
+    }
+
+    function movePrevious() {
+      if ($scope.WizardHandler.wizard('besImpactEvaluation').currentStep().wzTitle === "Summary") {
+        $scope.criteriaOutput = "Low"
+      }
+      if ($scope.WizardHandler.wizard('besImpactEvaluation').currentStep().wzTitle === "Impact Rating Criteria") {
+        $scope.selectAll.isSelected = false
+      }
+      $scope.WizardHandler.wizard('besImpactEvaluation').previous();
     }
 
     // Save and Close Widget
@@ -340,7 +373,7 @@
       }).update({ 'entityType': entityType, 'digitalControlSystems': digitalControlSystems, 'bESImpact': bESImpact, 'lastAssessmentDate': epochDate, 'selectedCriteria': selectedCriteria }).$promise.then(function () {
       });
 
-      // Add comment
+      // Add note/comment in the detailed view
       var noteData = 'No Notes available!'
       if ($scope.note.data !== "") {
         noteData = $scope.note.data
@@ -371,42 +404,6 @@
         $window.location.reload();
       }, 3000);
       $scope.close();
-    }
-
-    function containsObject(mainList, subObject) {
-      return mainList.some(item => JSON.stringify(item) === JSON.stringify(subObject));
-    }
-
-    function moveNext() {
-      $scope.WizardHandler.wizard('besImpactEvaluation').next();
-      if ($scope.WizardHandler.wizard('besImpactEvaluation').currentStep().wzTitle === 'Associated Assets') {
-        loadDefaultEntityAndDCS()
-      }
-      if ($scope.WizardHandler.wizard('besImpactEvaluation').currentStep().wzTitle === 'Entity & Control Systems') {
-        if ($scope.entityNextPage === 'Exit') {
-          $scope.close();
-        }
-        loadCriteria();
-        displaySubCriteria();
-      }
-      if ($scope.WizardHandler.wizard('besImpactEvaluation').currentStep().wzTitle === 'Impact Rating Criteria') {
-        checkCriteriaSelected()
-        setCriteriaOutput()
-        $scope.impactColor = $scope.entity.fields.bESImpact.options.find(item => item.itemValue === $scope.criteriaOutput).color
-        const impactColorElement = document.getElementById('impactColorElement');
-        var impactColorRGB = $scope.convertHexToRgbA(CommonUtils.isUndefined($scope.impactColor) ? '#000' : $scope.impactColor);
-        impactColorElement.style.borderColor = $scope.impactColor;
-        impactColorElement.style.background = 'linear-gradient(to right, ' + impactColorRGB + ' 5%, transparent 100%)';
-      }
-    }
-    function movePrevious() {
-      if ($scope.WizardHandler.wizard('besImpactEvaluation').currentStep().wzTitle === "Summary") {
-        $scope.criteriaOutput = "Low"
-      }
-      if ($scope.WizardHandler.wizard('besImpactEvaluation').currentStep().wzTitle === "Impact Rating Criteria") {
-        $scope.selectAll.isSelected = false
-      }
-      $scope.WizardHandler.wizard('besImpactEvaluation').previous();
     }
   }
 })();
