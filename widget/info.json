@@ -3,7 +3,7 @@
     "title": "BES Impact Evaluation",
     "subTitle": "BES Impact Evaluation",
     "version": "1.0.0",
-    "publishedDate": 1696938743,
+    "published_date": 1696938743,
     "releaseNotes": "unavailable",
     "metadata": {
         "description": "The widget serves to compute the impact on Cyber Systems within the Bulk Electric System (BES) in accordance with the specifications outlined in NERC CIP 002.",
