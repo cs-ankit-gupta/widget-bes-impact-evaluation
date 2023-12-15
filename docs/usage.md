@@ -3,35 +3,33 @@
 
 # Usage
 
-The **BES Impact Evaluation** widget aids in assessing the impact on the Bulk Electric System Cyber System according to the standards outlined in NERC CIP 002-5.1a.
+The **BES Impact Evaluation** widget helps in assessing the impact on the BES (Bulk Electric System) Cyber System according to the standards outlined in NERC CIP 002-5.1a.
 
-## Feautres
+## Features
 
-This widget is only supported on module **BES Cyber System** to evaluate BES Impact Level under the Solution Pack - [OT - Compliance - NERC CIP 002](https://github.com/fortinet-fortisoar/solution-pack-ot-compliance-nerc-cip-002/blob/release/1.0.0/README.md). Widget is launched from the `Evaluate Impact` button on respected module List View. 
+This widget is only supported on module **BES Cyber System** to evaluate BES Impact Level under the Solution Pack - [OT - Compliance - NERC CIP 002](https://github.com/fortinet-fortisoar/solution-pack-ot-compliance-nerc-cip-002/blob/release/1.0.0/README.md).
 
-Following steps of the wizard will appear:
-   
-   1. **Start**: Begin the evaluation by clicking on *Let's start by viewing associated Assets*
-            
-        ![](./res/bes-impact-start.png)
+1. Click the **Evaluate Impact** button on a record's detailed view, to launch this widget.
 
-   2. **Associated Assets**: List down all associated assets, and feel free to include notes for additional details.
-    
-        ![](./res/bes-impact-associated-assets.png)
+2. **Start**: Begin the evaluation by clicking *Let's start by viewing associated Assets*
 
-   3. **Entity & Control Systems**: Display the **Entity Types** and **Digital Control Systems** of records, providing options to modify both Entity Type and Digital Control Systems.
-        
-        ![](./res/bes-impact-entity-and-systems.png)
+    ![](./res/bes-impact-start.png)
 
-   4. **Impact Rating Criteria**: Illustrates the impact rating criteria based on the selected Entity Type and Digital Control System in accordance with [NERC CIP 002-5.1a](https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-002-5.1a.pdf), as outlined in CIP-002-5.1a - Attachment 1.
-   
-        ![](./res/bes-impact-criteria.png)
+2. **Associated Assets**: Review the list of associated assets and include notes, in the **Note** field, for additional details. Click the button **Provide Entity & Control Systems Information** to continue.
 
-   5. **Summary**: Capture all the given inputs and the Evaluated Impact Level.
-    
-        ![](./res/bes-impact-summary.png)
+    ![](./res/bes-impact-associated-assets.png)
 
-Click on **Record & Set Evaluated Impact** to record all the input and Evaluated Impact Level.
+4. **Entity & Control Systems**: Review and select applicable entity and digital control systems type and click the button **Access Criteria** to proceed.
+
+    ![](./res/bes-impact-entity-and-systems.png)
+
+5. **Impact Rating Criteria**: Select applicable statements to assess the level of impact based on the selected **Entity Type** and **Digital Control System**, as outlined in [NERC CIP-002-5.1a - Attachment 1](https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-002-5.1a.pdf). Click **Continue** to proceed.
+
+    ![](./res/bes-impact-criteria.png)
+
+6. **Summary**: Review the impact assessment information. Click the button **Back** to make changes, or **Record & Set Evaluated Impact** to record all the input and evaluated impact level.
+
+    ![](./res/bes-impact-summary.png)
 
 | [Installation](./setup.md#installation) | [Configuration](./setup.md#configuration) |
 |-----------------------------------------|-------------------------------------------|
