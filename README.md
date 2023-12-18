@@ -12,7 +12,7 @@
 
 # Overview
 
-The widget serves to compute the impact on Cyber Systems within the Bulk Electric System (BES) in accordance with the specifications outlined in NERC CIP 002.
+The **BES Impact Evaluation** widget facilitates the assessment of Cyber Systems' impact on the Bulk Electric System (BES), aligning with NERC CIP 002 standards. This tool ensures comprehensive evaluation of cyber-related implications, crucial for maintaining the security and reliability of the BES in accordance with industry specifications.
 
 ## Next Steps
 
